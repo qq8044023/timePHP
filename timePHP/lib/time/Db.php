@@ -7,10 +7,10 @@ use timePHP\Db;
 class Db{
     //数据库类型
     protected $dbType=["Mysql"];
-    public function run(){
+    public function run($table=""){
        if(in_array(ucfirst(C("DB.DB_TYPE")),$this->dbType)){
            Loader::loadfle("db.".ucfirst(C("DB.DB_TYPE")));
-           return new Db\Mysql();
+           return new Db\Mysql($table);
        }
        Error::run(503, "数据库扩展类不存在.");
     }

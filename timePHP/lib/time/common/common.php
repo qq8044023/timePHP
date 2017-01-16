@@ -143,7 +143,7 @@ function Pkill($config,$key){
     }
 }
 //M方法
-function M(){
-    $a=new timePHP\Db();
-    return $a->run();
+function M($table=""){
+    $db=new timePHP\Db();
+    return $db->run($table);
 }

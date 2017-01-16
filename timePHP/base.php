@@ -3,6 +3,7 @@
  * @author 码农<8044023@qq.com>
  * */
 //版本号
+set_time_limit(0);
 define('ML_VERSION', '1.0');
 define("DS", DIRECTORY_SEPARATOR);
 define("APP_ROOT", __DIR__.DS);
