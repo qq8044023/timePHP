@@ -142,3 +142,8 @@ function Pkill($config,$key){
         }
     }
 }
+//M方法
+function M(){
+    $a=new timePHP\Db();
+    return $a->run();
+}

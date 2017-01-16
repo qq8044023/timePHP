@@ -3,8 +3,15 @@
  * 数据库操作
  *   */
 namespace timePHP;
+use timePHP\Db;
 class Db{
-    public static function run(){
-        
+    //数据库类型
+    protected $dbType=["Mysql"];
+    public function run(){
+       if(in_array(ucfirst(C("DB.DB_TYPE")),$this->dbType)){
+           Loader::loadfle("db.".ucfirst(C("DB.DB_TYPE")));
+           return new Db\Mysql();
+       }
+       Error::run(503, "数据库扩展类不存在.");
     }
 }

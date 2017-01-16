@@ -22,6 +22,10 @@ class Loader{
         require_once COMMON_PATH.DS.'common.php';    
         C(require_once COMMON_PATH.DS.'config.php');
     }
+    //指定加载
+    public static function loadfle($fileName){
+        require_once str_replace(".","\\",$fileName).'.php';
+    }
 }
 
 

@@ -6,6 +6,10 @@
 namespace Crontab;
 class init{
     public static function _init(){
-        echo "我是备份";
+        
+        $db=M();
+        $db->where("id=1")->find();
+        
+       // $db->where()->fild();
     }
 }

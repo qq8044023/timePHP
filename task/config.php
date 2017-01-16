@@ -30,12 +30,12 @@ return [
     ],
     "Execute"=>["clearroom","backup"],//需要启动的任务
     //数据库信息
-    "Mysql"=>array(
+    "DB"=>array(
         'DB_TYPE' => 'mysql',
         'DB_HOST' => 'localhost',
         'DB_NAME' => 'tourism_game',
         'DB_USER' => 'root',
-        'DB_PWD' => 'f401_d258~ADl222ea9',
+        'DB_PWD' => '',
         'DB_PORT' => '3306',
         'DB_CODE'=>'utf8'
     ),

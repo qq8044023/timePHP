@@ -9,7 +9,10 @@ class Course{
     protected $putInfo;
     public function __construct(){
         $this->task=C();
+        
         global $argv;
+        $argv[1]="start";
+        $argv[2]="backup";
         $this->putInfo=$argv;
         $this->run();
     }
@@ -32,6 +35,10 @@ class Course{
     }
     //执行程序
     public function init($courseName){
+        require_once TASKCOMMON_PATH.'/crontab/'.$courseName.'/init.php';
+        \Crontab\init::_init();
+        die;
+        //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
             Error::run(704, "任务配置错误,请检查配置文件.");
         }
