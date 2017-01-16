@@ -35,7 +35,7 @@ return [
         'DB_HOST' => 'localhost',
         'DB_NAME' => 'tourism_game',
         'DB_USER' => 'root',
-        'DB_PWD' => 'f401_d258~ADl222ea9',
+        'DB_PWD' => '',
         'DB_PORT' => '3306',
         'DB_CODE'=>'utf8'
     ),
