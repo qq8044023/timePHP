@@ -11,8 +11,8 @@ class Course{
         $this->task=C();
         
         global $argv;
-        $argv[1]="start";
-        $argv[2]="backup";
+       /*  $argv[1]="start";
+        $argv[2]="backup"; */
         $this->putInfo=$argv;
         $this->run();
     }
@@ -27,23 +27,37 @@ class Course{
     //执行
     public function start(){
         if($this->putInfo[2]=="all"){//批量开启 进程
-            //多进程
-            Error::run(705, "批量开启进程待完善.");
+            //多进程 批量执行 用另外的php 来启动配置文件里面的任务
+            $rootPath=shell_exec("pwd");
+            $arr=["backup","clearroom"];//"clearroom",
+            $exe="";//获取到的主进程的pid
+            $pid=getmypid();
+            foreach ($arr as $v){
+                sleep(1);
+                $exe.=" |php start.php start ".$v;   
+            }
+            system ("cd ".str_replace(array(" ","　","\t","\n","\r"),"",$rootPath).$exe,$ppp);
+            /* foreach (C("Execute") as $v){
+                $this->init($v);
+            } */
+            exit;
+           // Error::run(705, "批量开启进程待完善.");
         }else{//开启单一进程
             $this->init($this->putInfo[2]);
         }
     }
     //执行程序
     public function init($courseName){
-        require_once TASKCOMMON_PATH.'/crontab/'.$courseName.'/init.php';
+        /* require_once TASKCOMMON_PATH.'/crontab/'.$courseName.'/init.php';
         \Crontab\init::_init();
-        die;
+        die; */
         //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
             Error::run(704, "任务配置错误,请检查配置文件.");
         }
         declare( ticks = 1 );
         $pid  =  pcntl_fork ();
+        echo $pid;
         if ( $pid  == - 1 ) {
             die( "could not fork" );  //pcntl_fork返回-1标明创建子进程失败
         } else if ( $pid ) {
@@ -67,11 +81,14 @@ class Course{
     }
     //停止程序
     public function kill(){
-        Pkill(C(),$this->putInfo[2]);
+        if (empty($this->putInfo[2]) || $this->putInfo[2]=="all"){
+            $this->putInfo[2]="all";
+        }
+        pKill(C(),$this->putInfo[2]);
         die("\r\n"."退出成功"."\r\n");
     }
     //查看进程
     public function select(){
-        select(C());
+    //    select(C());
     }
 }

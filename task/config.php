@@ -7,17 +7,17 @@ return [
     //任务 id
     "Task"=>[
         "clearmeesage"=>[
-            "time"=>60,
+            "time"=>2,
             "number"=>0,
             "name"=>"clearmeesage"
         ],//清除短信中不要的垃圾数据
         "clearroom"=>[
-            "time"=>3,
+            "time"=>2,
             "number"=>1,
             "name"=>"clearroom"
         ],//清除房间中不要的垃圾数据
         "backup"=>[
-            "time"=>10,//多久备份一次
+            "time"=>2,//多久备份一次
             "number"=>2,
             "name"=>"backup",
             "target_dir"=>"/home/bak/",//备份的路径
@@ -33,9 +33,9 @@ return [
     "DB"=>array(
         'DB_TYPE' => 'mysql',
         'DB_HOST' => 'localhost',
-        'DB_NAME' => 'tourism_game',
+        'DB_NAME' => 'test',
         'DB_USER' => 'root',
-        'DB_PWD' => '',
+        'DB_PWD' => 'root',
         'DB_PORT' => '3306',
         'DB_CODE'=>'utf8'
     ),

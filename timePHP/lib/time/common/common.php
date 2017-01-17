@@ -123,7 +123,7 @@ function get_task_key($config,$key){
     return $config["TASK"][$key]["number"];
 }
 //关闭进程中的所有的pid
-function Pkill($config,$key){
+function pKill($config,$key){
     $open=file_get_contents("pid.log");
     if($open!=""){
         $task_key=get_task_key($config,$key);

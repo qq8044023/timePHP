@@ -67,7 +67,7 @@ class Mysql{
     }
     //获取 查询条数
     public function count(){
-        $sql="SELECT ".$this->field." FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
+        $sql="SELECT COUNT(*) FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
         return mysqli_num_rows($this->_query($sql));
     }
     //添加

@@ -6,10 +6,6 @@
 namespace Crontab;
 class init{
     public static function _init(){
-        
-        $db=M();
-        $db->where("id=1")->find();
-        
-       // $db->where()->fild();
+        error_log(time(),3,"bakcup.log");
     }
 }
