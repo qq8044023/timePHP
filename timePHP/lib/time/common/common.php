@@ -83,26 +83,6 @@ function is_file_array($arr_file){
     }
     return ;
 }
-/**
- * 启动进程
- * @param $config $arr_file 配置值  
- *   */
-function Pstart($config,$key){
-    $open=file_get_contents(COURSE_PID);
-    $task_key=get_task_key($config, $key);
-    
-    if($open!=""){
-        foreach (json_decode($open) as $k=>$v){
-            if($task_key==$k){
-                posix_kill($v, SIGTERM);//关闭当前进程
-            }else{
-                $arr[$k]=$v;
-            }
-        }
-    }
-    $arr[$task_key]=getmypid();
-    file_put_contents(COURSE_PID,json_encode($arr));
-}
 function  sig_handler ( $signo ) {
     switch ( $signo ) {
         case  SIGTERM :
@@ -114,32 +94,6 @@ function  sig_handler ( $signo ) {
             break;
         default:
             // 处理所有其他信号
-    }
-}
-function get_task_key($config,$key){
-    if($key=="all"){
-        return "all";
-    }
-    return $config["TASK"][$key]["number"];
-}
-//关闭进程中的所有的pid
-function pKill($config,$key){
-    $open=file_get_contents("pid.log");
-    if($open!=""){
-        $task_key=get_task_key($config,$key);
-        if($task_key=="all"){
-            //关闭全部进程
-            foreach (json_decode($open) as $v){
-                //关闭进程
-                posix_kill($v, SIGTERM);//关闭当前进程
-            }
-            file_put_contents(COURSE_PID,"");
-        }else{//关闭单一进程
-            $arr=json_decode($open);
-            posix_kill($arr[$task_key], SIGTERM);//关闭当前进程
-            unset($arr[$task_key]);
-            file_put_contents(COURSE_PID,json_encode($arr));
-        }
     }
 }
 //M方法

@@ -28,7 +28,7 @@ return [
             "past_time"=>9//过期时间/天
         ],//数据库定时备份
     ],
-    "Execute"=>["clearroom","backup"],//需要启动的任务
+    "Execute"=>["clearroom","backup","clearmeesage"],//需要启动的任务
     //数据库信息
     "DB"=>array(
         'DB_TYPE' => 'mysql',

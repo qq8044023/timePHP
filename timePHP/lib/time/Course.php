@@ -7,9 +7,22 @@ use Crontab;
 class Course{
     protected $task;
     protected $putInfo;
+    protected static $_maxPidLength = 12;
+    
+    /**
+     * Maximum length of the socket names.
+     *
+     * @var int
+     */
+    protected static $_maxNameLength = 12;
+    
+    /**
+     * Maximum length of the process user names.
+     *
+     * @var int
+     */
     public function __construct(){
         $this->task=C();
-        
         global $argv;
        /*  $argv[1]="start";
         $argv[2]="backup"; */
@@ -28,36 +41,19 @@ class Course{
     public function start(){
         if($this->putInfo[2]=="all"){//批量开启 进程
             //多进程 批量执行 用另外的php 来启动配置文件里面的任务
-            $rootPath=shell_exec("pwd");
-            $arr=["backup","clearroom"];//"clearroom",
-            $exe="";//获取到的主进程的pid
-            $pid=getmypid();
-            foreach ($arr as $v){
-                sleep(1);
-                $exe.=" |php start.php start ".$v;   
-            }
-            system ("cd ".str_replace(array(" ","　","\t","\n","\r"),"",$rootPath).$exe,$ppp);
-            /* foreach (C("Execute") as $v){
-                $this->init($v);
-            } */
-            exit;
-           // Error::run(705, "批量开启进程待完善.");
+            $this->startAll();
         }else{//开启单一进程
             $this->init($this->putInfo[2]);
         }
     }
     //执行程序
     public function init($courseName){
-        /* require_once TASKCOMMON_PATH.'/crontab/'.$courseName.'/init.php';
-        \Crontab\init::_init();
-        die; */
         //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
             Error::run(704, "任务配置错误,请检查配置文件.");
         }
         declare( ticks = 1 );
         $pid  =  pcntl_fork ();
-        echo $pid;
         if ( $pid  == - 1 ) {
             die( "could not fork" );  //pcntl_fork返回-1标明创建子进程失败
         } else if ( $pid ) {
@@ -71,7 +67,7 @@ class Course{
         }  
         pcntl_signal ( SIGTERM ,  "sig_handler" );
         pcntl_signal ( SIGHUP ,  "sig_handler" );
-        Pstart(C(),$courseName);
+        $this->_start($courseName);
         require_once TASKCOMMON_PATH.'/crontab/'.$courseName.'/init.php';
         $time=C("Task");
         while ( 1 ) {
@@ -84,11 +80,112 @@ class Course{
         if (empty($this->putInfo[2]) || $this->putInfo[2]=="all"){
             $this->putInfo[2]="all";
         }
-        pKill(C(),$this->putInfo[2]);
+        $this->pKill($this->putInfo[2]);
         die("\r\n"."退出成功"."\r\n");
     }
     //查看进程
     public function select(){
-    //    select(C());
+        self::_select();
+    }
+    /**
+     * 启动进程
+     * @param $config $arr_file 配置值
+     *   */
+    private  function _start($key){
+        $open=file_get_contents(COURSE_PID);
+        $task_key=$this->get_task_key($key);
+        if($open!="" || $open!=NULL){
+            $pid_list=json_decode($open,true);
+            if(!empty($pid_list["taskPid"])){
+                foreach ($pid_list["taskPid"] as $k=>$v){
+                    if($task_key==$k){
+                        posix_kill($v, SIGTERM);//关闭当前进程
+                    }else{
+                        $taskPid[$k]=$v;
+                    }
+                }
+            }
+        }
+        $taskPid[$task_key]=getmypid();
+        $data=[
+            "taskPid"=>$taskPid,
+            "coursePid"=>!empty($pid_list["coursePid"])?$pid_list["coursePid"]:0
+        ];
+        file_put_contents(COURSE_PID,json_encode($data));
+    }
+    //验证是否是全部
+    private function get_task_key($key){
+        if($key=="all"){
+            return "all";
+        }
+        return C("TASK")[$key]["number"];
+    }
+    //关闭进程中的所有的pid
+    private function pKill($key){
+        $open=file_get_contents(COURSE_PID);
+        if($open!="" || $open!=NULL){
+            $task_key=$this->get_task_key($key);
+            $pid_list=json_decode($open,true);
+            if($task_key=="all"){
+                //关闭全部进程
+                foreach ($pid_list["taskPid"] as $v){
+                    //关闭进程
+                    posix_kill($v, SIGTERM);//关闭当前进程
+                }
+                posix_kill($pid_list["coursePid"], SIGTERM);
+                file_put_contents(COURSE_PID,"");
+            }else{//关闭单一进程
+                posix_kill($pid_list["taskPid"][$task_key], SIGTERM);//关闭当前进程
+                unset($pid_list["taskPid"][$task_key]);
+                file_put_contents(COURSE_PID,json_encode($pid_list));
+            }
+        }
+    }
+    //启动全部处理
+    private function startAll(){
+        $rootPath=shell_exec("pwd");
+        $manCourse="";//获取到的主进程的pid
+        //清除 原来存在的pid 重新启动
+        self::_restart(getmypid());
+        foreach (C("Execute") as $v){
+            $manCourse.=" |php start.php start ".$v;
+        }
+        exec("cd ".str_replace(array(" ","　","\t","\n","\r"),"",$rootPath).$manCourse );
+        exit;
+    }
+    //重启操作 关闭存在的进程
+    private static function _restart($coursePid){
+        $pid_list=json_decode(file_get_contents(COURSE_PID),true);
+        if (!empty($pid_list["taskPid"])){
+            foreach ($pid_list["taskPid"] as $v){
+                posix_kill($v, SIGTERM);//关闭当前进程
+            }
+            posix_kill($pid_list["coursePid"], SIGTERM);//关闭主进程
+        }
+        file_put_contents(COURSE_PID,json_encode(["coursePid"=>$coursePid]));
+    }
+    //查看 运行中的进程
+    private static function _select(){
+        $open=file_get_contents(COURSE_PID);
+        if($open==""){
+            return "";
+        }
+        echo "\033[1A\n\033[K-----------------------\033[47;30m timePHP \033[0m-----------------------------\n\033[0m";
+        echo 'timePHP version:', "1.0", "          PHP version:", PHP_VERSION, "\n";
+        echo "------------------------\033[47;30m timePHP \033[0m-------------------------------\n";
+        echo "\033[47;30mpid\033[0m", str_pad('',
+         self::$_maxPidLength + 2 - strlen('pid')), "\033[47;30mname\033[0m", str_pad('',
+         self::$_maxNameLength + 2 - strlen('name')), "\033[47;30mstatus\033[0m","\033[0m\n" ;//str_pad('',
+       //  self::$_maxSocketNameLength + 2 - strlen('status'))."\033[0m\n";//, "\033[47;30mprocesses\033[0m \033[47;30m", "status\033[0m\n";
+        
+         foreach (json_decode($open,true)["taskPid"] as $k=>$v) {
+         echo str_pad($v, self::$_maxPidLength + 2), str_pad(C("Execute.".$k),
+         self::$_maxNameLength + 2)," \033[32;40m [OK] \033[0m\n";;// str_pad(33,
+        // self::$_maxSocketNameLength + 2), str_pad(' ' . 44, 9), " \033[32;40m [OK] \033[0m\n";;
+         }
+        echo "----------------------------------------------------------------\033[0m\n";
+        /* foreach (json_decode($open,true)["taskPid"] as $k=>$v){
+            echo "    ".$v."                  ".C("Execute.".$k)."                    "."\r\n";
+        } */
     }
 }
