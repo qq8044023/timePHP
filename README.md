@@ -6,17 +6,22 @@ timePHP是一个基于php cli开发的定时脚本框架,可以实现简单的�
 
 ##timePHP操作命令
 ###全部启动命令
-####[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php start all &
-
-###单一启动命令
-####[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php start backup
-
+```
+[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php start all &
+```
+##单一启动命令
+```
+[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php start backup
+```
 ###关闭命令
-####[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php kill
-
+```
+[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php kill
+```
 ###单一关闭命令
-####[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php kill backup
-
+```
+[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php kill backup
+```
 ###查看命令
-####[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php select
-
+```
+[root@iZbp1if228spaovivfbbyjZ CronTab]# php ./start.php select
+```
