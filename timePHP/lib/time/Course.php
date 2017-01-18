@@ -8,7 +8,6 @@ class Course{
     protected $task;
     protected $putInfo;
     protected static $_maxPidLength = 12;
-    
     /**
      * Maximum length of the socket names.
      *
@@ -24,8 +23,6 @@ class Course{
     public function __construct(){
         $this->task=C();
         global $argv;
-       /*  $argv[1]="start";
-        $argv[2]="backup"; */
         $this->putInfo=$argv;
         $this->run();
     }
@@ -41,6 +38,10 @@ class Course{
     public function start(){
         if($this->putInfo[2]=="all"){//批量开启 进程
             //多进程 批量执行 用另外的php 来启动配置文件里面的任务
+            self::_regStart();
+            print("\r\n");
+            echo "\033[32;40m [启动成功] \033[0m";
+            print("\r\n");
             $this->startAll();
         }else{//开启单一进程
             $this->init($this->putInfo[2]);
@@ -81,7 +82,9 @@ class Course{
             $this->putInfo[2]="all";
         }
         $this->pKill($this->putInfo[2]);
-        die("\r\n"."退出成功"."\r\n");
+        print("\r\n");
+        echo "\033[32;40m [退出成功] \033[0m\n";
+        die("\r\n");
     }
     //查看进程
     public function select(){
@@ -170,8 +173,9 @@ class Course{
         if($open==""){
             return "";
         }
+        print("\r\n".""."\r\n");
         echo "\033[1A\n\033[K-----------------------\033[47;30m timePHP \033[0m-----------------------------\n\033[0m";
-        echo 'timePHP version:', "1.0", "          PHP version:", PHP_VERSION, "\n";
+        echo 'timePHP version:', ML_VERSION, "          PHP version:", PHP_VERSION, "\n";
         echo "------------------------\033[47;30m timePHP \033[0m-------------------------------\n";
         echo "\033[47;30mpid\033[0m", str_pad('',
          self::$_maxPidLength + 2 - strlen('pid')), "\033[47;30mname\033[0m", str_pad('',
@@ -183,9 +187,15 @@ class Course{
          self::$_maxNameLength + 2)," \033[32;40m [OK] \033[0m\n";;// str_pad(33,
         // self::$_maxSocketNameLength + 2), str_pad(' ' . 44, 9), " \033[32;40m [OK] \033[0m\n";;
          }
-        echo "----------------------------------------------------------------\033[0m\n";
+        echo "-----------------------------------------------------------";
+        die("\r\n".""."\r\n");
         /* foreach (json_decode($open,true)["taskPid"] as $k=>$v){
             echo "    ".$v."                  ".C("Execute.".$k)."                    "."\r\n";
         } */
+    }
+    //验证 是否重复操作
+    private static function _regStart(){
+        $data=json_decode(file_get_contents(COURSE_PID),true);
+        $data!=""?die("\r\n"."请关闭后再启动"."\r\n"):"";
     }
 }
