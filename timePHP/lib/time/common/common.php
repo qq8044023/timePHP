@@ -101,3 +101,15 @@ function M($table=""){
     $db=new timePHP\Db();
     return $db->run($table);
 }
+/**
+ * 特殊字符串替换
+ * @param unknown $str
+ * @return string|unknown  */
+function replace_keyword($str){
+    $repArr=["@",".","!","&","$"];
+    $repStr="";
+    foreach (str_split($str) as $v){
+        $repStr.=in_array($v, $repArr)?"\\".$v:$v;
+    }
+    return $repStr;
+}
