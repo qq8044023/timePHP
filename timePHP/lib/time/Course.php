@@ -96,12 +96,12 @@ class Course{
      *   */
     private  function _start($key){
         $open=file_get_contents(COURSE_PID);
-        $task_key=$this->getTaskKey($key);
+        $taskKey=$this->get_task_key($key);
         if($open!="" || $open!=NULL){
-            $pid_list=json_decode($open,true);
-            if(!empty($pid_list["taskPid"])){
-                foreach ($pid_list["taskPid"] as $k=>$v){
-                    if($task_key==$k){
+            $pidList=json_decode($open,true);
+            if(!empty($pidList["taskPid"])){
+                foreach ($pidList["taskPid"] as $k=>$v){
+                    if($taskKey==$k){
                         posix_kill($v, SIGTERM);//关闭当前进程
                     }else{
                         $taskPid[$k]=$v;
@@ -109,15 +109,15 @@ class Course{
                 }
             }
         }
-        $taskPid[$task_key]=getmypid();
+        $taskPid[$taskKey]=getmypid();
         $data=[
             "taskPid"=>$taskPid,
-            "coursePid"=>!empty($pid_list["coursePid"])?$pid_list["coursePid"]:0
+            "coursePid"=>!empty($pidList["coursePid"])?$pidList["coursePid"]:0
         ];
         file_put_contents(COURSE_PID,json_encode($data));
     }
     //验证是否是全部
-    private function getTaskKey($key){
+    private function get_task_key($key){
         if($key=="all"){
             return "all";
         }
@@ -127,20 +127,20 @@ class Course{
     private function pKill($key){
         $open=file_get_contents(COURSE_PID);
         if($open!="" || $open!=NULL){
-            $task_key=$this->getTaskKey($key);
-            $pid_list=json_decode($open,true);
-            if($task_key=="all"){
+            $taskKey=$this->get_task_key($key);
+            $pidList=json_decode($open,true);
+            if($taskKey=="all"){
                 //关闭全部进程
-                foreach ($pid_list["taskPid"] as $v){
+                foreach ($pidList["taskPid"] as $v){
                     //关闭进程
                     posix_kill($v, SIGTERM);//关闭当前进程
                 }
-                posix_kill($pid_list["coursePid"], SIGTERM);
+                posix_kill($pidList["coursePid"], SIGTERM);
                 file_put_contents(COURSE_PID,"");
             }else{//关闭单一进程
-                posix_kill($pid_list["taskPid"][$task_key], SIGTERM);//关闭当前进程
-                unset($pid_list["taskPid"][$task_key]);
-                file_put_contents(COURSE_PID,json_encode($pid_list));
+                posix_kill($pidList["taskPid"][$taskKey], SIGTERM);//关闭当前进程
+                unset($pidList["taskPid"][$taskKey]);
+                file_put_contents(COURSE_PID,json_encode($pidList));
             }
         }
     }
@@ -158,12 +158,12 @@ class Course{
     }
     //重启操作 关闭存在的进程
     private static function _restart($coursePid){
-        $pid_list=json_decode(file_get_contents(COURSE_PID),true);
-        if (!empty($pid_list["taskPid"])){
-            foreach ($pid_list["taskPid"] as $v){
+        $pidList=json_decode(file_get_contents(COURSE_PID),true);
+        if (!empty($pidList["taskPid"])){
+            foreach ($pidList["taskPid"] as $v){
                 posix_kill($v, SIGTERM);//关闭当前进程
             }
-            posix_kill($pid_list["coursePid"], SIGTERM);//关闭主进程
+            posix_kill($pidList["coursePid"], SIGTERM);//关闭主进程
         }
         file_put_contents(COURSE_PID,json_encode(["coursePid"=>$coursePid]));
     }
