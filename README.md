@@ -89,6 +89,62 @@ return [
 ];
 ?>
 ```
+##数据库操作
+###查询单条
+```
+M("User")->where("id=1")->find();
+```
+###查询多条
+```
+M("User")->where("id=1")->select();
+```
+###删除一条
+```
+M("User")->where("id=1")->delete();
+```
+###获取总条数
+```
+M("User")->where("id=1")->count();
+```
+###修改
+```
+$data=array(
+    'username'=>'小张',
+    'password'=>md5(123456)	
+);
+M("User")->where("uid=1")->save($data);
+```
+###新增
+```
+$data=array(
+    'username'=>'小张',
+    'password'=>md5(123456)	
+);
+M("User")->add($data);//返回单条新增id
+```
+###筛选字段
+```
+M("User")->field('username')->where("id=1")->find();
+M("User")->field('username')->where("id=1")->select();
+```
+###查询复杂的sql语句
+$sql="select * from a left join b on a.id=b.id";
+```
+M()->execute($sql);
+```
+##公共函数
+###获取配置信息
+```
+C('DB.type')
+```
+###打印
+```
+dump()
+```
+###替换特殊字符串
+```
+replace_keyword（$str）
+```
 
 
 
