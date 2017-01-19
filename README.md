@@ -40,9 +40,7 @@ pid           name          status
 
 ```
 ##目录结构
-```
 ![](catalogue.jpg) 
-```
 任务代码
 例:
 ```
