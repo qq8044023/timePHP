@@ -96,7 +96,7 @@ class Course{
      *   */
     private  function _start($key){
         $open=file_get_contents(COURSE_PID);
-        $task_key=$this->get_task_key($key);
+        $task_key=$this->getTaskKey($key);
         if($open!="" || $open!=NULL){
             $pid_list=json_decode($open,true);
             if(!empty($pid_list["taskPid"])){
@@ -117,7 +117,7 @@ class Course{
         file_put_contents(COURSE_PID,json_encode($data));
     }
     //验证是否是全部
-    private function get_task_key($key){
+    private function getTaskKey($key){
         if($key=="all"){
             return "all";
         }
@@ -127,7 +127,7 @@ class Course{
     private function pKill($key){
         $open=file_get_contents(COURSE_PID);
         if($open!="" || $open!=NULL){
-            $task_key=$this->get_task_key($key);
+            $task_key=$this->getTaskKey($key);
             $pid_list=json_decode($open,true);
             if($task_key=="all"){
                 //关闭全部进程
