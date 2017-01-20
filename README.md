@@ -62,7 +62,7 @@ class init{
         for($i=$past_time;$i>=1;$i--){
             foreach(C("TASK.backup")['db_array'] as $db_name){
                 $command="rm -rf ".C("TASK.backup")['target_dir'].$db_name."_".date("Ymd",time()-(($i+$past_time)*86400)).".sql";
-                // shell_exec($command,$output);//是否删除 过期的数据库
+                // shell_exec($command);//是否删除 过期的数据库
             }
         }
     }
