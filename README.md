@@ -185,6 +185,14 @@ Log::write($log);
         "log_name"=>""
     ]
 ```
-
-
+###日志格式
+```
+[警告][2017-01-20 16:19:51]\nFILE:D:\phpStudy\wwwroot\www.work.com\timePHP\lib\time\Course.php
+LINE:27行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+```
 
