@@ -5,6 +5,7 @@
  *   */
 namespace timePHP;
 class Error{
+    public $var;
     const ERROR_DEADLY_LEVEL = 1;//致命
     const ERROR_WARNING_LEVEL= 2;//警告
     const ERROR_DEFAULT      = 3;//默认异常
