@@ -1,8 +1,8 @@
 <?php 
 /**
  * 任务进程中的配置文件
- * time 单位秒
- * @var array  */
+ * @author 码农<8044023@qq.com>
+ *   */
 return [
     //任务 id
     "TASK"=>[

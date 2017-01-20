@@ -1,7 +1,7 @@
 <?php
-/**
- * 
- * Mysql操作方法  
+/** 
+ * Mysql操作封装 
+ * @author 码农<8044023@qq.com>
  *   */
 namespace timePHP\Db;
 use timePHP;

@@ -1,6 +1,7 @@
 <?php
-/**
- * 执行进程操作
+/** 
+ * 进程操作  
+ * @author 码农<8044023@qq.com>
  *   */
 namespace timePHP;
 use Crontab;
@@ -31,7 +32,11 @@ class Course{
         if(in_array($int, get_class_methods($this))){
             $this->$int();
         }else{
-            Error::run(703, "你的操作命令错误");
+            try {
+                Error::run(Error::ERROR_WARNING_LEVEL, 703,"你的操作命令错误");
+            }catch (\Exception $e){
+                echo $e;
+            }
         }
     }
     //执行
@@ -51,7 +56,11 @@ class Course{
     public function init($courseName){
         //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
-            Error::run(704, "任务配置错误,请检查配置文件.");
+            try {
+                Error::run(Error::ERROR_WARNING_LEVEL, 704,"任务配置错误,请检查配置文件");
+            }catch (\Exception $e){
+                echo $e;
+            }
         }
         declare( ticks = 1 );
         $pid  =  pcntl_fork ();
@@ -96,7 +105,7 @@ class Course{
      *   */
     private  function _start($key){
         $open=file_get_contents(COURSE_PID);
-        $taskKey=$this->get_task_key($key);
+        $taskKey=$this->getTaskKey($key);
         if($open!="" || $open!=NULL){
             $pidList=json_decode($open,true);
             if(!empty($pidList["taskPid"])){
@@ -117,7 +126,7 @@ class Course{
         file_put_contents(COURSE_PID,json_encode($data));
     }
     //验证是否是全部
-    private function get_task_key($key){
+    private function getTaskKey($key){
         if($key=="all"){
             return "all";
         }
@@ -127,7 +136,7 @@ class Course{
     private function pKill($key){
         $open=file_get_contents(COURSE_PID);
         if($open!="" || $open!=NULL){
-            $taskKey=$this->get_task_key($key);
+            $taskKey=$this->getTaskKey($key);
             $pidList=json_decode($open,true);
             if($taskKey=="all"){
                 //关闭全部进程
