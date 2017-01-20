@@ -170,6 +170,21 @@ dump()
 ```
 replace_keyword（$str）
 ```
+##日志
+###写入日志
+```
+Log::write($log);
+```
+日志路径:timePHP/error.log。
+###自定义日志
+```
+"LOG"=>[//日志相关配置
+        "log_path"=>"timePHP/",
+        "log_file_size"=>2097152,
+        "log_time_format"=>"c",
+        "log_name"=>""
+    ]
+```
 
 
 

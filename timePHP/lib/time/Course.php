@@ -23,6 +23,12 @@ class Course{
      */
     public function __construct(){
         $this->task=C();
+        try {
+            Error::run(Error::ERROR_WARNING_LEVEL, 703,"你的操作命令错误");
+        }catch (\Exception $e){
+            echo $e;
+        }
+        die;
         global $argv;
         $this->putInfo=$argv;
         $this->run();

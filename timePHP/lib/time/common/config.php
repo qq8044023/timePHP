@@ -4,5 +4,10 @@
  * @author 码农<8044023@qq.com>
  *   */
 return [
-    "demo"=>"测试c方法"
+    "LOG"=>[//日志相关配置
+        "log_path"=>"timePHP/",
+        "log_file_size"=>2097152,
+        "log_time_format"=>"c",
+        "log_name"=>""
+    ]
 ];
