@@ -80,17 +80,17 @@ return [
     //任务 id
     "TASK"=>[
         "clearmeesage"=>[
-            "time"=>60,
+            "time"=>60,//时间周期 /秒
             "number"=>0,
             "name"=>"clearmeesage"
         ],//清除短信中不要的垃圾数据
         "clearroom"=>[
-            "time"=>3600,
+            "time"=>3600,//时间周期 /秒
             "number"=>1,
             "name"=>"clearroom"
         ],//清除房间中不要的垃圾数据
         "backup"=>[
-            "time"=>86400,//多久备份一次
+            "time"=>86400,//时间周期 /秒
             "number"=>2,
             "name"=>"backup",
             "target_dir"=>"/home/bak/",//备份的路径

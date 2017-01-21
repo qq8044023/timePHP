@@ -7,19 +7,19 @@ return [
     //任务 id
     "TASK"=>[
         "clearmeesage"=>[
-            "time"=>2,
-            "number"=>0,
-            "name"=>"clearmeesage"
+            "time"=>2,//时间周期 /秒
+            "number"=>0,//序列号
+            "name"=>"clearmeesage"//进程名 （和任务名一样）
         ],//清除短信中不要的垃圾数据
         "clearroom"=>[
-            "time"=>2,
-            "number"=>1,
-            "name"=>"clearroom"
+            "time"=>2,//时间周期 /秒
+            "number"=>1,//序列号
+            "name"=>"clearroom"//进程名 （和任务名一样）
         ],//清除房间中不要的垃圾数据
         "backup"=>[
-            "time"=>2,//多久备份一次
-            "number"=>2,
-            "name"=>"backup",
+            "time"=>2,//时间周期 /秒
+            "number"=>2,//序列号
+            "name"=>"backup",//进程名 （和任务名一样）
             "target_dir"=>"/home/bak/",//备份的路径
             "db_array"=>[//要备份的数据库
                 "tourism_game",
