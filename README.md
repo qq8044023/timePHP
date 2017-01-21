@@ -74,38 +74,39 @@ class init{
 <?php 
 /**
  * 任务进程中的配置文件
- * time 单位秒
- * @var array  */
+ * @author 码农<8044023@qq.com>
+ *   */
 return [
     //任务 id
     "TASK"=>[
         "clearmeesage"=>[
-            "time"=>60,//时间周期 /秒
-            "number"=>0,
-            "name"=>"clearmeesage"
-        ],//清除短信中不要的垃圾数据
+            "time"=>2,//时间周期 /秒
+            "number"=>0,//序列号
+            "name"=>"clearmeesage"//进程名 （和任务名一样）
+        ],//清除短信中不要的垃圾数据 
         "clearroom"=>[
-            "time"=>3600,//时间周期 /秒
-            "number"=>1,
-            "name"=>"clearroom"
+            "time"=>2,//时间周期 /秒
+            "number"=>1,//序列号
+            "name"=>"clearroom"//进程名 （和任务名一样）
         ],//清除房间中不要的垃圾数据
         "backup"=>[
-            "time"=>86400,//时间周期 /秒
-            "number"=>2,
-            "name"=>"backup",
+            "time"=>2,//时间周期 /秒
+            "number"=>2,//序列号
+            "name"=>"backup",//进程名 （和任务名一样）
             "target_dir"=>"/home/bak/",//备份的路径
-            "dbArray"=>[//要备份的数据库
+            "db_array"=>[//要备份的数据库
                 "tourism_game",
+                "tourism_game2"
             ],
             "past_time"=>9//过期时间/天
         ],//数据库定时备份
     ],
-    "EXECUTE"=>["clearroom","backup","clearmeesage"],//需要启动的任务 "backup",
+    "EXECUTE"=>["clearroom","backup","clearmeesage"],//需要启动的任务
     //数据库信息
     "DB"=>array(
         'DB_TYPE' => 'mysql',
         'DB_HOST' => 'localhost',
-        'DB_NAME' => 'demo',
+        'DB_NAME' => 'test',
         'DB_USER' => 'root',
         'DB_PWD' => 'root',
         'DB_PORT' => '3306',
