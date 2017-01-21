@@ -6,6 +6,6 @@ namespace Crontab;
 class init{
     //入口
     static public function _init(){
-        error_log(time(),3,"clearroom.log");
+        
     }
 }

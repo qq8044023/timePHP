@@ -19,6 +19,5 @@ class init{
                  shell_exec($command);//是否删除 过期的数据库
             }
         } */
-        echo 1;
     }
 }
