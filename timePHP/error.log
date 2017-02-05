@@ -5,3 +5,52 @@ LEVEL:2
 CODE:703
 MSG:你的操作命令错误
 -------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:33]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:41]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:44]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:50]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:51]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:49:51]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------
+[警告][2017-01-21 06:50:08]\nFILE:D:\phpStudy\wwwroot\timePHP\timePHP\lib\time\Course.php
+LINE:36行
+FUNCTION:run
+LEVEL:2
+CODE:703
+MSG:你的操作命令错误
+-------------------------------------------------------------------------------------------------

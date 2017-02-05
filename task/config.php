@@ -32,7 +32,7 @@ return [
     //数据库信息
     "DB"=>array(
         'DB_TYPE' => 'mysql',
-        'DB_HOST' => 'localhost',
+        'DB_HOST' => '127.0.0.1',
         'DB_NAME' => 'test',
         'DB_USER' => 'root',
         'DB_PWD' => 'root',
