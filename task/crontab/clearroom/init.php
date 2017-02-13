@@ -6,6 +6,7 @@ namespace Crontab;
 class init{
     //入口
     static public function _init(){
-        
+        //1 查询出当前
+             
     }
 }
