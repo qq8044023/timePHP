@@ -16,7 +16,7 @@ class init{
             $sql_arr[]=$sql_name;
         }
         //邮件发送C("EMAIL.GET_EMAIL")
-        timePHP_send_mail(C("EMAIL.GET_EMAIL"),'测试备份-'.date("Y-m-d H:i:s"),'备份测试环境-'.date("Y-m-d H:i:s",time()),'<p>邮件来了测试</p>',$sql_arr);
+        timePHP_send_mail(C("EMAIL.GET_EMAIL"),'测试备份-'.date("Y-m-d H:i:s"),'备份测试环境-'.date("Y-m-d H:i:s",time()),'<p>感谢你使用timePHP框架！</p>',$sql_arr);
         //删除 过期的数据库备份数据
         $past_time=C("TASK.backup")['target_dir'];
         for($i=$past_time;$i>=1;$i--){
