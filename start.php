@@ -1,6 +1,6 @@
 <?php
 /**
- * 唯一入口
+ * 守护进程脚本开发
  * @author 码农<8044023@qq.com>
  *  */
 define('APP_PATH', __DIR__);
