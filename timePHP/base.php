@@ -1,6 +1,5 @@
 <?php
 /**
- * 全局引用
  * @author 码农<8044023@qq.com>
  * */
 //版本号
@@ -12,6 +11,8 @@ define("APP_ROOT", __DIR__.DS);
 define('COURSE_PID', APP_ROOT.DS."pid.log");
 define("LIB_PATH", APP_ROOT.DS."lib");
 define("TASKCOMMON_PATH", APP_PATH.DS."task");
+//插件 存放目录
+define("EXTEND_PATH", TASKCOMMON_PATH.DS."extend");
 //框架核心目录
 define("CORE_PATH", LIB_PATH.DS."time");
 define("COMMON_PATH", CORE_PATH.DS."common");

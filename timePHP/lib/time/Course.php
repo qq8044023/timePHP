@@ -1,7 +1,6 @@
 <?php
-/** 
- * 进程操作  
- * @author 码农<8044023@qq.com>
+/**
+ * 执行进程操作
  *   */
 namespace timePHP;
 use Crontab;
@@ -32,11 +31,7 @@ class Course{
         if(in_array($int, get_class_methods($this))){
             $this->$int();
         }else{
-            try {
-                Error::run(Error::ERROR_WARNING_LEVEL, 703,"你的操作命令错误");
-            }catch (\Exception $e){
-                echo $e;
-            }
+            Error::run(703, "你的操作命令错误");
         }
     }
     //执行
@@ -56,11 +51,7 @@ class Course{
     public function init($courseName){
         //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
-            try {
-                Error::run(Error::ERROR_WARNING_LEVEL, 704,"任务配置错误,请检查配置文件");
-            }catch (\Exception $e){
-                echo $e;
-            }
+            Error::run(704, "任务配置错误,请检查配置文件.");
         }
         declare( ticks = 1 );
         $pid  =  pcntl_fork ();
@@ -105,12 +96,12 @@ class Course{
      *   */
     private  function _start($key){
         $open=file_get_contents(COURSE_PID);
-        $taskKey=$this->getTaskKey($key);
+        $task_key=$this->getTaskKey($key);
         if($open!="" || $open!=NULL){
-            $pidList=json_decode($open,true);
-            if(!empty($pidList["taskPid"])){
-                foreach ($pidList["taskPid"] as $k=>$v){
-                    if($taskKey==$k){
+            $pid_list=json_decode($open,true);
+            if(!empty($pid_list["taskPid"])){
+                foreach ($pid_list["taskPid"] as $k=>$v){
+                    if($task_key==$k){
                         posix_kill($v, SIGTERM);//关闭当前进程
                     }else{
                         $taskPid[$k]=$v;
@@ -118,10 +109,10 @@ class Course{
                 }
             }
         }
-        $taskPid[$taskKey]=getmypid();
+        $taskPid[$task_key]=getmypid();
         $data=[
             "taskPid"=>$taskPid,
-            "coursePid"=>!empty($pidList["coursePid"])?$pidList["coursePid"]:0
+            "coursePid"=>!empty($pid_list["coursePid"])?$pid_list["coursePid"]:0
         ];
         file_put_contents(COURSE_PID,json_encode($data));
     }
@@ -136,20 +127,20 @@ class Course{
     private function pKill($key){
         $open=file_get_contents(COURSE_PID);
         if($open!="" || $open!=NULL){
-            $taskKey=$this->getTaskKey($key);
-            $pidList=json_decode($open,true);
-            if($taskKey=="all"){
+            $task_key=$this->getTaskKey($key);
+            $pid_list=json_decode($open,true);
+            if($task_key=="all"){
                 //关闭全部进程
-                foreach ($pidList["taskPid"] as $v){
+                foreach ($pid_list["taskPid"] as $v){
                     //关闭进程
                     posix_kill($v, SIGTERM);//关闭当前进程
                 }
-                posix_kill($pidList["coursePid"], SIGTERM);
+                posix_kill($pid_list["coursePid"], SIGTERM);
                 file_put_contents(COURSE_PID,"");
             }else{//关闭单一进程
-                posix_kill($pidList["taskPid"][$taskKey], SIGTERM);//关闭当前进程
-                unset($pidList["taskPid"][$taskKey]);
-                file_put_contents(COURSE_PID,json_encode($pidList));
+                posix_kill($pid_list["taskPid"][$task_key], SIGTERM);//关闭当前进程
+                unset($pid_list["taskPid"][$task_key]);
+                file_put_contents(COURSE_PID,json_encode($pid_list));
             }
         }
     }
@@ -167,12 +158,12 @@ class Course{
     }
     //重启操作 关闭存在的进程
     private static function _restart($coursePid){
-        $pidList=json_decode(file_get_contents(COURSE_PID),true);
-        if (!empty($pidList["taskPid"])){
-            foreach ($pidList["taskPid"] as $v){
+        $pid_list=json_decode(file_get_contents(COURSE_PID),true);
+        if (!empty($pid_list["taskPid"])){
+            foreach ($pid_list["taskPid"] as $v){
                 posix_kill($v, SIGTERM);//关闭当前进程
             }
-            posix_kill($pidList["coursePid"], SIGTERM);//关闭主进程
+            posix_kill($pid_list["coursePid"], SIGTERM);//关闭主进程
         }
         file_put_contents(COURSE_PID,json_encode(["coursePid"=>$coursePid]));
     }

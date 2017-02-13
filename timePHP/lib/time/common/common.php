@@ -114,3 +114,10 @@ function replace_keyword($str){
     }
     return $repStr;
 }
+/**
+ * 导入所需的类库 同java的Import 本函数有缓存功能
+ *  * @param unknown $str
+ */
+function import($path) {
+    require EXTEND_PATH.DS.str_replace(".","/",$path).'.php';
+}

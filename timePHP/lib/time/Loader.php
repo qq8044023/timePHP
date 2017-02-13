@@ -24,7 +24,7 @@ class Loader{
     }
     //指定加载
     public static function loadfle($fileName){
-        require_once str_replace(".","\\",$fileName).'.php';
+        require_once str_replace(".","/",$fileName).'.php';
     }
 }
 

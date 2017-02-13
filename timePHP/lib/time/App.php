@@ -1,7 +1,6 @@
 <?php
-/** 
- * 执行  
- * @author 码农<8044023@qq.com>
+/**
+ * 执行
  *   */
 namespace timePHP;
 class App{
@@ -18,13 +17,7 @@ class App{
         is_file_array($configFile);//验证文件是否存在
         //验证 任务是否设置 
         C(array_merge(C(),require_once $configFile[1]));
-        if(empty(C("Execute"))){
-            try {
-                Error::run(Error::ERROR_WARNING_LEVEL,701,"任务不能空。");
-            }catch (\Exception $e){
-                echo $e;
-            }
-        }
+        empty(C("Execute")) && Error::run(701, "任务不能空。");
         require_once $configFile[0];
     }
 }

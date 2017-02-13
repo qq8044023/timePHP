@@ -1,7 +1,7 @@
 <?php
-/** 
- * Mysql操作封装 
- * @author 码农<8044023@qq.com>
+/**
+ * 
+ * Mysql操作方法  
  *   */
 namespace timePHP\Db;
 use timePHP;
@@ -10,7 +10,6 @@ class Mysql{
     protected  $field="*";//筛选字段
     protected  $talbe;//数据库名
     protected  $connect;
-    protected  $sql;
     public function __construct($table=""){
         $this->talbe=$table;
     }
@@ -35,8 +34,8 @@ class Mysql{
     }
     //查询一条数据
     public function find(){
-        $this->sql="SELECT ".$this->field." FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
-        return mysqli_fetch_assoc($this->_query());
+        $sql="SELECT ".$this->field." FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
+        return mysqli_fetch_assoc($this->_query($sql));
     }
     //修改
     public function save($data){
@@ -49,8 +48,8 @@ class Mysql{
         foreach ($data as $k=>$v){
             $val.="`".$k."`='".$v."'";
         }
-        $this->sql="UPDATE `".$this->talbe."` SET ".$val." ".$this->where;
-        return $this->_query();
+        $sql="UPDATE `".$this->talbe."` SET ".$val." ".$this->where;
+        return $this->_query($sql);
         
     }
     //删除
@@ -58,18 +57,18 @@ class Mysql{
         $where=($this->where=="WHERE "?"":$this->where);
         if($where=="")
            timePHP\Error::run(504, "条件不能为空!");
-        $this->sql="DELETE FROM `".$this->talbe."` ".($this->where=="WHERE "?"":$this->where);
-        return $this->_query();
+        $sql="DELETE FROM `".$this->talbe."` ".($this->where=="WHERE "?"":$this->where);
+        return $this->_query($sql);
     }
     //查询多条结果
     public function select(){
-        $this->sql="SELECT ".$this->field." FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
-        return $this->get_result_array();
+        $sql="SELECT ".$this->field." FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
+        return $this->get_result_array($sql);
     }
     //获取 查询条数
     public function count(){
-        $this->sql="SELECT COUNT(*) FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
-        return mysqli_num_rows($this->_query());
+        $sql="SELECT COUNT(*) FROM ".$this->talbe." ".($this->where=="WHERE "?"":$this->where);
+        return mysqli_num_rows($this->_query($sql));
     }
     //添加
     public function add($data){
@@ -80,8 +79,8 @@ class Mysql{
             $key.=" `".$k."`";
             $val.=" '".$v."'";
         }
-        $this->sql="INSERT INTO `".$this->talbe."`(".$key.") VALUES (".$val.")";
-        $this->_query();
+        $sql="INSERT INTO `".$this->talbe."`(".$key.") VALUES (".$val.")";
+        $this->_query($sql);
         return mysqli_insert_id($this->connect);
     }
     //执行复杂查询语句
@@ -89,21 +88,17 @@ class Mysql{
         return $this->get_result_array($sql);
     }
     //执行sql语句
-    protected  function _query(){
+    protected  function _query($sql){
         $this->connectDb();
-        return mysqli_query($this->connect,$this->sql);
+        return mysqli_query($this->connect,$sql);
     }
     //获取 结果数组
-    protected function get_result_array(){
-        $result = $this->_query($this->sql);
+    protected function get_result_array($sql){
+        $result = $this->_query($sql);
         $arr=array();
         while($row=$result->fetch_assoc()){
             $arr[]=$row;
         }
         return $arr;
-    }
-    //打印sql语句
-    public function getLastSql($sql){
-        echo $this->sql;
     }
 }
