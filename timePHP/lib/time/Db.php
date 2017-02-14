@@ -12,6 +12,10 @@ class Db{
            Loader::loadfle("db.".ucfirst(C("DB.DB_TYPE")));
            return new Db\Mysql($table);
        }
-       Error::run(503, "数据库扩展类不存在.");
+       try {
+           Error::run(Error::ERROR_WARNING_LEVEL, 503,"数据库扩展类不存在.");
+       }catch (\Exception $e){
+           echo $e;
+       }
     }
 }

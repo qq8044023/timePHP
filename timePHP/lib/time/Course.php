@@ -1,6 +1,7 @@
 <?php
 /**
  * 执行进程操作
+ * @author 码农<8044023@qq.com>
  *   */
 namespace timePHP;
 use Crontab;
@@ -31,7 +32,11 @@ class Course{
         if(in_array($int, get_class_methods($this))){
             $this->$int();
         }else{
-            Error::run(703, "你的操作命令错误");
+            try {
+                Error::run(Error::ERROR_WARNING_LEVEL, 703,"你的操作命令错误");
+            }catch (\Exception $e){
+                echo $e;
+            }
         }
     }
     //执行
@@ -51,7 +56,11 @@ class Course{
     public function init($courseName){
         //开发测试
         if(!in_array($courseName, $this->task["EXECUTE"])){
-            Error::run(704, "任务配置错误,请检查配置文件.");
+            try {
+                Error::run(Error::ERROR_WARNING_LEVEL, 704,"任务配置错误,请检查配置文件");
+            }catch (\Exception $e){
+                echo $e;
+            }
         }
         declare( ticks = 1 );
         $pid  =  pcntl_fork ();
