@@ -1,6 +1,6 @@
 {
-    "name": "timePHP/time",
-    "description": "the new timePHP framework",
+    "name": "time-php/time",
+    "description": "the new time-php framework",
     "type": "project",
     "keywords": [
         "timePHP",
@@ -23,7 +23,7 @@
         "php": ">=5.3"
     },
     "extra": {
-        "think-path": "timePHP"
+        "think-path": "time-php"
     },
     "config": {
         "preferred-install": "dist"
