@@ -1,0 +1,30 @@
+{
+	"name": "timePHP",
+	"description": "Timing task",
+	"keywords": ["Timing task", "Timing task","finger daemonfinger"],
+	"homepage": "https://github.com/qq8044023/timePHP",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "ÂëÅ©",
+			"email": "8044023@qq.com"
+		}
+	],
+	"require": {
+		"php": ">=5.3",
+		"ext-fileinfo": "*"
+	},
+	"require-dev": {
+		"timePHP/timePHP": "~1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"timePHP\\": "/"
+		}
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	}
+}
