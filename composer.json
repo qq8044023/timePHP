@@ -1,30 +1,31 @@
 {
-	"name": "timePHP",
-	"description": "Timing task",
-	"keywords": ["Timing task", "Timing task","finger daemonfinger"],
-	"homepage": "https://github.com/qq8044023/timePHP",
-	"license": "MIT",
-	"authors": [
-		{
-			"name": "manong",
-			"email": "8044023@qq.com"
-		}
-	],
-	"require": {
-		"php": ">=5.3",
-		"ext-fileinfo": "*"
+    "name": "timePHP/time",
+    "description": "the new timePHP framework",
+    "type": "project",
+    "keywords": [
+        "timePHP",
+        "time",
+	"framework"
+    ],
+    "authors": [
+        {
+            "name": "manong",
+            "email": "8044023@qq.com"
+        }
+    ],
+     "repositories": {
+    	"packagist": {
+        	"type": "composer",
+        	"url": "https://packagist.phpcomposer.com"
+    	}
 	},
-	"require-dev": {
-		"codeception/codeception": "~1.0"
-	},
-	"autoload": {
-		"psr-4": {
-			"timePHP\\": "/"
-		}
-	},
-	"extra": {
-		"branch-alias": {
-			"dev-master": "1.0-dev"
-		}
-	}
+    "require": {
+        "php": ">=5.4.0",
+    },
+    "extra": {
+        "think-path": "timePHP"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
 }
