@@ -6,7 +6,7 @@
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "ÂëÅ©",
+			"name": "manong",
 			"email": "8044023@qq.com"
 		}
 	],
@@ -15,7 +15,7 @@
 		"ext-fileinfo": "*"
 	},
 	"require-dev": {
-		"timePHP/timePHP": "~1.0"
+		"codeception/codeception": "~1.0"
 	},
 	"autoload": {
 		"psr-4": {
