@@ -25,7 +25,7 @@ class Ui{
         echo "\033[47;30mpid\033[0m", str_pad('',
         self::$_maxPidLength + 2 - strlen('pid')), "\033[47;30mname\033[0m", str_pad('',
         self::$_maxNameLength + 2 - strlen('name')), "\033[47;30mstatus\033[0m","\033[0m\n" ;//str_pad('',
-        foreach (file::getJson() as $k=>$v) {
+        foreach (File::getJson() as $k=>$v) {
             echo str_pad($v['pid'], self::$_maxPidLength + 2), str_pad($k,
             self::$_maxNameLength + 2)," \033[32;40m [OK] \033[0m\n";
         }
