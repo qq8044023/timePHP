@@ -7,6 +7,7 @@ timePHP是一个基于php cli开发的定时脚本框架,可以实现简单的�
 ##timePHP操作命令
 
 ##全部启动命令
+
 ```
 [root@FX-DEBUG taskphp]# php ./start.php start
 
@@ -22,6 +23,7 @@ pid           name          status
 ```
 
 ##查看任务列表
+
 ```
 [root@FX-DEBUG taskphp]# php ./start.php status
 
@@ -33,12 +35,15 @@ pid           name          status
 14525         clearmeesage    [OK] 
 14526         clearrom        [OK] 
 -----------------------------------------------------------
+
 ```
 ##退出程序
+
 ```
 [root@FX-DEBUG taskphp]# php ./start.php kill  
 
  [退出成功] 
+ 
 ``` 
 
 
