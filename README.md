@@ -9,7 +9,7 @@
 
 ## 全部启动命令
 
-```
+``` liunx
 [root@FX-DEBUG taskphp]# php ./start.php start
 
 ----------------------- timePHP -----------------------------
