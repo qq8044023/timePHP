@@ -9,7 +9,7 @@
 
 ## 全部启动命令
 
-``` liunx
+``` python
 [root@FX-DEBUG taskphp]# php ./start.php start
 
 ----------------------- timePHP -----------------------------
@@ -25,7 +25,7 @@ pid           name          status
 
 ## 查看任务列表
 
-```
+``` python
 [root@FX-DEBUG taskphp]# php ./start.php status
 
 ----------------------- timePHP -----------------------------
@@ -40,7 +40,7 @@ pid           name          status
 ```
 ## 退出程序
 
-```
+``` python
 [root@FX-DEBUG taskphp]# php ./start.php kill  
 
  [退出成功] 
