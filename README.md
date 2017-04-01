@@ -63,6 +63,7 @@ pid           name          status
 
 ## 配置文件规范
 
+```
 <?php 
 /**
  * 配置文件
