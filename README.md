@@ -120,7 +120,7 @@ return [
 
 ## 获取配置文件信息
 
-```
+``` php
 
 $config=$this->getConfig();
 var_dump($config);
@@ -128,7 +128,7 @@ var_dump($config);
 ```
 ## 引用第三方插件
 
-```
+``` php
 如:
 <?php
 namespace app\clearmeesage;
