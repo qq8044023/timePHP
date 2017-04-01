@@ -110,3 +110,33 @@ return [
 
 ```
 
+## 数据库操作
+
+```
+待完善文档
+
+```
+
+## 获取配置文件信息
+
+```
+
+$config=$this->getConfig();
+var_dump($config);
+
+```
+## 引用第三方插件
+
+```
+如:
+SystemFun::import("extend@PHPMailer@PHPMailerAutoload");
+
+```
+
+
+
+
+
+
+
+
