@@ -1,6 +1,7 @@
 <?php 
 namespace app\clearmeesage;
 use lib\Task;
+use lib\common\SystemFun;
 /**
  * @author     村长<8044023@qq.com>
  * @copyright  TimePHP
@@ -8,6 +9,7 @@ use lib\Task;
  */
 class clearmeesageTask extends Task{
     public function run(){
+        SystemFun::import("extend@PHPMailer@PHPMailerAutoload");
         error_log ( "测试每小时1分钟执行一次:".date("YmdHis")."----" ,  3 ,  "/home/h.log" );
         //测试调用 该任务下的demo
         $demo=new Demo();
