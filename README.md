@@ -113,10 +113,162 @@ return [
 
 ## 数据库操作
 
-```
-待完善文档
+## 新增
+
+``` php
+<?php
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $data=[
+            "player_id"=>$player_id,
+            "item_id"=>$v["item_id"],
+            "rows"=>$v["rows"]
+        ];
+        $db->table("tourism_game_player_item")->add($data);
+    }
+}
 
 ```
+
+## 删除
+
+``` php
+<?php 
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $db->table("tourism_game_player_item")->where(["id"=>1])->delete();
+    }
+}
+
+```
+
+## 改
+
+``` php
+<?php 
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $db->table("表名")->where(array("room_id"=>1))->save(array("status"=>1));
+    }
+}
+
+```
+
+## 查询一条数据
+
+``` php
+<?php 
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $res=$db->table("表名")->find();
+    }
+}
+```
+
+## 查询多数据
+
+``` php
+<?php
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $res=$db->table("表名")->select();
+    }
+}
+
+```
+
+## where条件
+
+``` php
+<?php
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $res=$db->table("表名")->where(array('status'=>1))->select();
+        //或者
+        $res=$db->table("表名")->where('status=1')->select();
+    }
+}
+
+```
+
+## where条件
+
+``` php
+<?php
+namespace app\clearrom;
+use lib\Task;
+use lib\Db;
+/**
+ * @author     村长<8044023@qq.com>
+ * @copyright  TimePHP
+ * @license    https://github.com/qq8044023/timePHP
+ */
+class clearromTask extends Task{
+    public function run(){
+        $db=Db::setConfig($this->getConfig()["DB"]);
+        $res=$db->table("表名")->where(array('status'=>1))->select();
+        //或者
+        $res=$db->table("表名")->where('status=1')->select();
+    }
+}
+
+```
+
+
 
 ## 获取配置文件信息
 

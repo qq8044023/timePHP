@@ -20,6 +20,8 @@ abstract class ClientSire{
     protected $sql=null;
     //排序
     protected $order=null;
+    //分组
+    protected $group=null;
     abstract public function find();
     abstract public function select();
     abstract public function add($data=[]);
@@ -52,5 +54,8 @@ abstract class ClientSire{
         $this->order=$order;
         return $this;
     }
-    
+    public function group($group){
+        $this->group=$group;
+        return $this;
+    }
 }

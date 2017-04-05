@@ -13,14 +13,23 @@ class backupTask extends Task{
         $config=$this->getConfig();
         $date = date("Ymd");
         $sql_arr=array();
+        $dir=$config["BAKDB"]["DBDIR"];//备份数据库存放路径
         foreach ($config["BAKDB"]["DBNAME"] as $dbName){
-            $sqlName=$config["BAKDB"]["DBDIR"].$dbName."_".$date."sql.sql";
+            $sqlName=$dir.$dbName."_".$date."sql.sql";
             $command ="mysqldump -u ".$config["DB"]["DB_USER"]." -p".SystemFun::replace_keyword($config["DB"]["DB_PWD"])." ".$dbName." >".$sqlName;
             shell_exec($command);
             $sql_arr[]=$sqlName;
         }
         //邮件发送C("EMAIL.GET_EMAIL")
         $this->timePHP_send_mail($config["EMAIL"]["GET_EMAIL"],'测试备份-'.date("Y-m-d H:i:s"),'备份测试环境-'.date("Y-m-d H:i:s",time()),'<p>邮件来了测试</p>',$sql_arr);
+        //删除 过期的数据库备份数据
+        $past_time=$config["BAKDB"]['PAST_TIME'];
+        for($i=$past_time;$i>=1;$i--){
+            foreach($config["BAKDB"]["DBNAME"] as $db_name){
+                $command="rm -rf ".$dir.$db_name."_".date("Ymd",time()-(($i+$past_time)*86400)).".sql";
+                //shell_exec($command);//是否删除 过期的数据库
+            }
+        }
     }
     /**
      * 邮件发送

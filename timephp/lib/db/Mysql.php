@@ -59,8 +59,13 @@ class Mysql extends ClientSire{
      * @see \core\lib\db\ClientSire::save()  */
     public function save($cols=[]){
         $this->wheres();
-        return $this->Db->update($this->name)->cols($cols)->where($this->where)->query();
+        $obj=$this->Db->update($this->name);
+        foreach ($cols as $k=>$v){
+            $obj=$obj->set($k,$v);
+        }
+        return $obj->where($this->where)->query();
     }
+    
     /**
      * 新增
      * {@inheritDoc}
@@ -73,7 +78,7 @@ class Mysql extends ClientSire{
      * {@inheritDoc}
      * @see \core\lib\db\ClientSire::getLastSql()  */
     public function getLastSql(){
-        $this->Db->lastSQL();
+        return $this->Db->lastSQL();
     }
     /**
      * 直接操作 底层封装类
@@ -88,7 +93,16 @@ class Mysql extends ClientSire{
      *   */
     protected function parseQuerySql(){
         $this->wheres();
-        return $this->Db->select($this->filed)->from($this->name)->where($this->where); 
+        $query=$this->Db->select($this->filed)->from($this->name)->where($this->where);
+        //排序
+        if (!is_null($this->order)){
+            $query=$query->orderBy($this->order);
+        }
+        //分组
+        if (!is_null($this->group)){
+            $query=$query->groupBy($this->group);
+        }
+        return $query;
     }
     /**
      * 处理where
@@ -99,5 +113,12 @@ class Mysql extends ClientSire{
                 $this->where[$k]=intval($v);
             }
         }
+    }
+    protected function toArray($arr){
+        $whereArr=array();
+        foreach ($arr as $k=>$v){
+            $whereArr[$k]="'".$v."'";
+        }
+        return $whereArr;
     }
 };

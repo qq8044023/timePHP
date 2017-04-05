@@ -27,12 +27,12 @@ class Db{
      * @param unknown $config  */
     public static function setConfig($config){
         self::$_config=array(
-            "db_type"=>$config["db_type"],
-            "db_host"=>$config["db_host"],
-            "db_username"=>$config["db_username"],
-            "db_password"=>$config["db_password"],
-            "db_prot"=>$config["db_prot"],
-            "db_name"=>$config["db_name"]
+            "db_type"=>$config["DB_TYPE"],
+            "db_host"=>$config["DB_HOST"],
+            "db_username"=>$config["DB_USER"],
+            "db_password"=>$config["DB_PWD"],
+            "db_prot"=>$config["DB_PORT"],
+            "db_name"=>$config["DB_NAME"]
         );
         return new static();
     }
