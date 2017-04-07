@@ -1,0 +1,27 @@
+{
+  "name": "time/timephp",
+  "description": "b.",
+  "type": "project",
+  "keywords": [
+    "timephp",
+    "time"
+  ],
+  "homepage": "http://www.houdunwang.com/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "村长",
+      "email": "8044023@qq.com"
+    }
+  ],
+  "minimum-stability": "stable",
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "files": [],
+    "psr-4": {
+      "time\\timephp\\": "src"
+    }
+  }
+}
