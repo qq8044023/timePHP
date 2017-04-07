@@ -7,19 +7,19 @@
  * |    WeChat: aihoudun
  * | Copyright (c) 2012-2019, www.houdunwang.com. All Rights Reserved.
  * '-------------------------------------------------------------------*/
-namespace houdunwang\page\build;
+namespace houdunwang\timePHP\build;
 
 class Base {
 	//总条数
 	protected $totalRow;
 	//总页数
-	protected $totalPage;
+	protected $totaltimePHP;
 	//每页显示数
 	protected $row = 15;
 	//每页显示页码数
-	protected $pageNum = 8;
+	protected $timePHPNum = 8;
 	//当前页
-	protected $selfPage;
+	protected $selftimePHP;
 	//页面地址
 	protected $url;
 	//文字描述
@@ -47,8 +47,8 @@ class Base {
 	 *
 	 * @return $this
 	 */
-	public function pageNum( $num ) {
-		$this->pageNum = (int) $num;
+	public function timePHPNum( $num ) {
+		$this->timePHPNum = (int) $num;
 
 		return $this;
 	}
@@ -64,9 +64,9 @@ class Base {
 		//总条数
 		$this->totalRow = $total;
 		//总页数
-		$this->totalPage();
+		$this->totaltimePHP();
 		//当前页
-		$this->selfPage();
+		$this->selftimePHP();
 		//基本uri
 		$this->setUrl();
 
@@ -78,7 +78,7 @@ class Base {
 	 * @return string
 	 */
 	public function show() {
-		if ( $this->totalPage > 1 ) {
+		if ( $this->totaltimePHP > 1 ) {
 			return '<nav><ul class="pagination">' . $this->pre() . $this->strList() . $this->next() . '</ul></nav>';
 		} else {
 			return '';
@@ -96,7 +96,7 @@ class Base {
 		$show['nexts']   = $this->nexts();
 		$show['next']    = $this->next();
 		$show['end']     = $this->end();
-		$show['nowPage'] = $this->nowPage();
+		$show['nowtimePHP'] = $this->nowtimePHP();
 		$show['select']  = $this->select();
 		$show['input']   = $this->input();
 		$show['picList'] = $this->picList();
@@ -105,19 +105,19 @@ class Base {
 	}
 
 	//当前页
-	private function selfPage() {
-		$self = max(Request::get('page',1),1);
-		$this->selfPage = min( $this->totalPage, $self );
+	private function selftimePHP() {
+		$self = max(Request::get('timePHP',1),1);
+		$this->selftimePHP = min( $this->totaltimePHP, $self );
 	}
 
 	//获取总页数
-	private function totalPage() {
-		return $this->totalPage = ceil( $this->totalRow / $this->row );
+	private function totaltimePHP() {
+		return $this->totaltimePHP = ceil( $this->totalRow / $this->row );
 	}
 
 	//获取总页数
-	public function getTotalPage() {
-		return $this->totalPage;
+	public function getTotaltimePHP() {
+		return $this->totaltimePHP;
 	}
 
 	//配置URL地址
@@ -129,27 +129,27 @@ class Base {
 
 		$url = '';
 		foreach ( (array) $_GET as $k => $v ) {
-			if ( $k != 'page' ) {
+			if ( $k != 'timePHP' ) {
 				$url .= "$k=$v&";
 			}
 		}
 
-		return $this->url = "?{$url}page={page}";
+		return $this->url = "?{$url}timePHP={timePHP}";
 	}
 
 	//获取URL地址
 	private function getUrl( $num ) {
-		return str_replace( '{page}', $num, $this->url );
+		return str_replace( '{timePHP}', $num, $this->url );
 	}
 
 	//获取URL前部分
 	private function getUrlBefore() {
-		return substr( $this->url, 0, strpos( $this->url, '{page}' ) );
+		return substr( $this->url, 0, strpos( $this->url, '{timePHP}' ) );
 	}
 
 	//获取URL后部分
 	private function getUrlEnd() {
-		return substr( $this->url, - strpos( $this->url, '{page}' ) );
+		return substr( $this->url, - strpos( $this->url, '{timePHP}' ) );
 	}
 
 	/**
@@ -184,54 +184,54 @@ class Base {
 	 * @return string
 	 */
 	public function limit() {
-		return max( 0, ( $this->selfPage - 1 ) * $this->row ) . "," . $this->row;
+		return max( 0, ( $this->selftimePHP - 1 ) * $this->row ) . "," . $this->row;
 	}
 
 	//上一页
 	public function pre() {
-		if ( $this->selfPage > 1 && $this->selfPage <= $this->totalPage ) {
-			return "<li><a href='" . $this->getUrl( $this->selfPage - 1 ) . "' class='pre'>{$this->desc['pre']}</a></li>";
+		if ( $this->selftimePHP > 1 && $this->selftimePHP <= $this->totaltimePHP ) {
+			return "<li><a href='" . $this->getUrl( $this->selftimePHP - 1 ) . "' class='pre'>{$this->desc['pre']}</a></li>";
 		}
 
-		return $this->totalPage ? "<li class='disabled'><span>{$this->desc['pre']}</span></li>" : '';
+		return $this->totaltimePHP ? "<li class='disabled'><span>{$this->desc['pre']}</span></li>" : '';
 	}
 
 	//下一页
 	public function next() {
 		$next = $this->desc['next'];
-		if ( $this->selfPage < $this->totalPage ) {
-			return "<li><a href='" . $this->getUrl( $this->selfPage + 1 ) . "' class='next'>{$next}</a></li>";
+		if ( $this->selftimePHP < $this->totaltimePHP ) {
+			return "<li><a href='" . $this->getUrl( $this->selftimePHP + 1 ) . "' class='next'>{$next}</a></li>";
 		}
 
-		return $this->totalPage ? "<li class='disabled'><span>{$next}</span></li>" : '';
+		return $this->totaltimePHP ? "<li class='disabled'><span>{$next}</span></li>" : '';
 	}
 
 	//列表项
-	public function pageList() {
-		$start = max( 1, min( $this->selfPage - ceil( $this->pageNum / 2 ), $this->totalPage - $this->pageNum ) );
-		$end   = min( $this->pageNum + $start, $this->totalPage );
+	public function timePHPList() {
+		$start = max( 1, min( $this->selftimePHP - ceil( $this->timePHPNum / 2 ), $this->totaltimePHP - $this->timePHPNum ) );
+		$end   = min( $this->timePHPNum + $start, $this->totaltimePHP );
 
-		$pageList = [ ];
+		$timePHPList = [ ];
 		//只有一页不显示页码
 		if ( $end == 1 ) {
 			return [ ];
 		}
 		for ( $i = $start; $i <= $end; $i ++ ) {
-			if ( $this->selfPage == $i ) {
-				$pageList [ $i ] ['url'] = '';
-				$pageList [ $i ] ['str'] = $i;
+			if ( $this->selftimePHP == $i ) {
+				$timePHPList [ $i ] ['url'] = '';
+				$timePHPList [ $i ] ['str'] = $i;
 				continue;
 			}
-			$pageList [ $i ] ['url'] = $this->getUrl( $i );
-			$pageList [ $i ] ['str'] = $i;
+			$timePHPList [ $i ] ['url'] = $this->getUrl( $i );
+			$timePHPList [ $i ] ['str'] = $i;
 		}
 
-		return $pageList;
+		return $timePHPList;
 	}
 
 	//文字页码列表
 	public function strList() {
-		$arr = $this->pageList();
+		$arr = $this->timePHPList();
 
 		$str = '';
 		foreach ( $arr as $v ) {
@@ -244,22 +244,22 @@ class Base {
 	//图标页码列表
 	public function picList() {
 		$str   = '';
-		$first = $this->selfPage == 1 ? "" : "<a href='" . $this->getUrl( 1 ) . "' class='picList'><span><<</span></a>";
-		$end   = $this->selfPage >= $this->totalPage ? "" : "<a href='" . $this->getUrl( $this->totalPage ) . "'  class='picList'><span>>></span></a>";
-		$pre   = $this->selfPage <= 1 ? "" : "<a href='" . $this->getUrl( $this->selfPage - 1 ) . "'  class='picList'><span><</span></a>";
-		$next  = $this->selfPage >= $this->totalPage ? "" : "<a href='" . $this->getUrl( $this->selfPage + 1 ) . "'  class='picList'><span>></span></a>";
+		$first = $this->selftimePHP == 1 ? "" : "<a href='" . $this->getUrl( 1 ) . "' class='picList'><span><<</span></a>";
+		$end   = $this->selftimePHP >= $this->totaltimePHP ? "" : "<a href='" . $this->getUrl( $this->totaltimePHP ) . "'  class='picList'><span>>></span></a>";
+		$pre   = $this->selftimePHP <= 1 ? "" : "<a href='" . $this->getUrl( $this->selftimePHP - 1 ) . "'  class='picList'><span><</span></a>";
+		$next  = $this->selftimePHP >= $this->totaltimePHP ? "" : "<a href='" . $this->getUrl( $this->selftimePHP + 1 ) . "'  class='picList'><span>></span></a>";
 
 		return $first . $pre . $next . $end;
 	}
 
 	//选项列表
 	public function select() {
-		$arr = $this->pageList();
+		$arr = $this->timePHPList();
 		if ( ! $arr ) {
 			return '';
 		}
 		$str
-			= "<select name='page' class='page_select' onchange='
+			= "<select name='timePHP' class='timePHP_select' onchange='
         javascript:
         location.href=this.options[selectedIndex].value;'>";
 		foreach ( $arr as $v ) {
@@ -272,13 +272,13 @@ class Base {
 	//输入框
 	public function input() {
 		$str
-			= "<input id='pagekeydown' type='text' name='page' value='{$this->selfPage}' class='pageinput' onkeydown = \"javascript:
+			= "<input id='timePHPkeydown' type='text' name='timePHP' value='{$this->selftimePHP}' class='timePHPinput' onkeydown = \"javascript:
         if(event.keyCode==13){
             location.href='{$this->getUrl('B')}'+this.value+'{$this->getUrl('A')}';
         }
         \"/>
-        <button class='pagebt' onclick = \"javascript:
-        var input = document.getElementById('pagekeydown');
+        <button class='timePHPbt' onclick = \"javascript:
+        var input = document.getElementById('timePHPkeydown');
         location.href='{$this->getUrlBefore()}'+input.value+'{$this->getUrlEnd()}';
         \">进入</button>
         ";
@@ -288,41 +288,41 @@ class Base {
 
 	//前几页
 	public function pres() {
-		$num = max( 1, $this->selfPage - $this->pageNum );
+		$num = max( 1, $this->selftimePHP - $this->timePHPNum );
 
-		return $this->selfPage > $this->pageNum ? "<li><a href='" . $this->getUrl( $num ) . "' class='pres'>前{$this->pageNum}页</a></li>" : "";
+		return $this->selftimePHP > $this->timePHPNum ? "<li><a href='" . $this->getUrl( $num ) . "' class='pres'>前{$this->timePHPNum}页</a></li>" : "";
 	}
 
 	//后几页
 	public function nexts() {
-		$num = min( $this->totalPage, $this->selfPage + $this->pageNum );
+		$num = min( $this->totaltimePHP, $this->selftimePHP + $this->timePHPNum );
 
-		return $this->selfPage + $this->pageNum < $this->totalPage ? "<li><a href='" . $this->getUrl( $num ) . "' class='nexts'>后{$this->pageNum}页</a></li>" : "";
+		return $this->selftimePHP + $this->timePHPNum < $this->totaltimePHP ? "<li><a href='" . $this->getUrl( $num ) . "' class='nexts'>后{$this->timePHPNum}页</a></li>" : "";
 	}
 
 	//首页
 	public function first() {
 		$first = $this->desc ['first'];
 
-		return $this->selfPage - $this->pageNum > 1 ? "<a href='" . $this->getUrl( 1 ) . " class='first'>{$first}</a>" : "";
+		return $this->selftimePHP - $this->timePHPNum > 1 ? "<a href='" . $this->getUrl( 1 ) . " class='first'>{$first}</a>" : "";
 	}
 
 	//末页
 	public function end() {
 		$end = $this->desc ['end'];
 
-		return $this->selfPage < $this->totalPage - $this->pageNum ? "<a href='" . $this->getUrl( $this->totalPage ) . "' class='end'>{$end}</a>" : "";
+		return $this->selftimePHP < $this->totaltimePHP - $this->timePHPNum ? "<a href='" . $this->getUrl( $this->totaltimePHP ) . "' class='end'>{$end}</a>" : "";
 	}
 
 	//n-m页
-	public function nowPage() {
-		$start = ( $this->selfPage - 1 ) * $this->row + 1; //当前页开始ID
-		$end   = min( $this->selfPage * $this->row, $this->totalRow ); //当前页结束ID
-		return "<span class='nowPage'>第{$start}-{$end}{$this->desc['unit']}</span>";
+	public function nowtimePHP() {
+		$start = ( $this->selftimePHP - 1 ) * $this->row + 1; //当前页开始ID
+		$end   = min( $this->selftimePHP * $this->row, $this->totalRow ); //当前页结束ID
+		return "<span class='nowtimePHP'>第{$start}-{$end}{$this->desc['unit']}</span>";
 	}
 
 	//count统计
 	public function count() {
-		return "<span class='count'>[共{$this->totalPage}页] [{$this->totalRow}条记录]</span>";
+		return "<span class='count'>[共{$this->totaltimePHP}页] [{$this->totalRow}条记录]</span>";
 	}
 }

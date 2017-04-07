@@ -7,12 +7,21 @@
  * |    WeChat: aihoudun
  * | Copyright (c) 2012-2019, www.houdunwang.com. All Rights Reserved.
  * '-------------------------------------------------------------------*/
-namespace houdunwang\page;
+namespace houdunwang\timePHP;
 
-use houdunwang\framework\build\Facade;
+use houdunwang\framework\build\Provider;
 
-class PageFacade extends Facade {
-	public static function getFacadeAccessor() {
-		return 'Page';
+class timePHPProvider extends Provider {
+
+	//延迟加载
+	public $defer = true;
+
+	public function boot() {
+	}
+
+	public function register() {
+		$this->app->single( 'timePHP', function ( $app ) {
+			return timePHP::single( $app );
+		} );
 	}
 }

@@ -7,10 +7,10 @@
  * |    WeChat: aihoudun
  * | Copyright (c) 2012-2019, www.houdunwang.com. All Rights Reserved.
  * '-------------------------------------------------------------------*/
-namespace houdunwang\page;
+namespace houdunwang\timePHP;
 
 use houdunwang\config\Config;
-use houdunwang\page\build\Base;
+use houdunwang\timePHP\build\Base;
 
 class timePHP {
 	protected $link = null;
