@@ -1,26 +1,30 @@
 {
-  "name": "qq8044023/time-php",
-  "description": "b.",
+  "name": "time/timephp",
+  "description": "分页组件可以产生基于当前页面的智能「范围」链接，所产生的 HTML 兼容 Bootstrap CSS 框架.",
   "type": "project",
   "keywords": [
-    "timephp",
-    "time"
+    "houdunwang",
+    "hdphp",
+    "后盾网",
+    "后盾人",
+    "page",
+    "后盾网向军"
   ],
   "license": "MIT",
   "authors": [
     {
-      "name": "村长",
-      "email": "8044023@qq.com"
+      "name": "后盾网向军",
+      "email": "2300071698@qq.com"
     }
   ],
   "minimum-stability": "stable",
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=5.4.0"
   },
   "autoload": {
     "files": [],
     "psr-4": {
-      "qq8044023\\time-php\\": "src"
+      "time\\timephp\\": "src"
     }
   }
 }
