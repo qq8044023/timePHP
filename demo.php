@@ -1,3 +1,3 @@
 <?php
 require 'vendor/autoload.php';
-echo \houdunwang\page\Page::make( 100 );
+echo \houdunwang\page\timePHP::make( 100 );
