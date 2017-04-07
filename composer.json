@@ -20,7 +20,7 @@
   "autoload": {
     "files": [],
     "psr-4": {
-      "qq8044023\\timephp\\": "src"
+      "qq8044023\\timePHP\\": "src"
     }
   }
 }
