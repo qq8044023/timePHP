@@ -1,12 +1,11 @@
 {
-  "name": "qq8044023/timePHP",
+  "name": "qq8044023/timephp",
   "description": "b.",
   "type": "project",
   "keywords": [
     "timephp",
     "time"
   ],
-  "homepage": "http://www.houdunwang.com/",
   "license": "MIT",
   "authors": [
     {
@@ -21,7 +20,7 @@
   "autoload": {
     "files": [],
     "psr-4": {
-      "qq8044023\\timePHP\\": "src"
+      "qq8044023\\timephp\\": "src"
     }
   }
 }
