@@ -1,20 +1,20 @@
 {
   "name": "time/timephp",
-  "description": "·ÖÒ³×é¼ş¿ÉÒÔ²úÉú»ùÓÚµ±Ç°Ò³ÃæµÄÖÇÄÜ¡¸·¶Î§¡¹Á´½Ó£¬Ëù²úÉúµÄ HTML ¼æÈİ Bootstrap CSS ¿ò¼Ü.",
+  "description": "åˆ†é¡µç»„ä»¶å¯ä»¥äº§ç”ŸåŸºäºå½“å‰é¡µé¢çš„æ™ºèƒ½ã€ŒèŒƒå›´ã€é“¾æ¥ï¼Œæ‰€äº§ç”Ÿçš„ HTML å…¼å®¹ Bootstrap CSS æ¡†æ¶.",
   "type": "project",
   "keywords": [
     "houdunwang",
     "hdphp",
-    "ºó¶ÜÍø",
-    "ºó¶ÜÈË",
+    "åç›¾ç½‘",
+    "åç›¾äºº",
     "page",
-    "ºó¶ÜÍøÏò¾ü"
+    "åç›¾ç½‘å‘å†›"
   ],
   "license": "MIT",
   "authors": [
     {
-      "name": "´å³¤",
-      "email": "8044023@qq.com"
+      "name": "åç›¾ç½‘å‘å†›",
+      "email": "2300071698@qq.com"
     }
   ],
   "minimum-stability": "stable",
@@ -24,7 +24,7 @@
   "autoload": {
     "files": [],
     "psr-4": {
-      "houdunwang\\page\\": "src"
+      "time\\timephp\\": "src"
     }
   }
 }
