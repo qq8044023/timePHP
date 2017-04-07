@@ -12,7 +12,7 @@ namespace houdunwang\page;
 use houdunwang\config\Config;
 use houdunwang\page\build\Base;
 
-class Page {
+class timePHP {
 	protected $link = null;
 
 	//更改缓存驱动

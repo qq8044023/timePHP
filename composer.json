@@ -1,5 +1,5 @@
 {
-  "name": "time/page",
+  "name": "qq8044023/timePHP",
   "description": "b.",
   "type": "project",
   "keywords": [
@@ -21,7 +21,7 @@
   "autoload": {
     "files": [],
     "psr-4": {
-      "time\\page\\": "src"
+      "qq8044023\\timePHP\\": "src"
     }
   }
 }
