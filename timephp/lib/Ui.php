@@ -21,6 +21,7 @@ class Ui{
         print("\r\n".""."\r\n");
         echo "\033[1A\n\033[K-----------------------\033[47;30m timePHP \033[0m-----------------------------\n\033[0m";
         echo 'timePHP version:', ML_VERSION, "          PHP version:", PHP_VERSION, "\n";
+        echo 'startTime:', date("Y-m-d H:i:s"), "\n";
         echo "------------------------\033[47;30m timePHP \033[0m-------------------------------\n";
         echo "\033[47;30mpid\033[0m", str_pad('',
         self::$_maxPidLength + 2 - strlen('pid')), "\033[47;30mname\033[0m", str_pad('',
