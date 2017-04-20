@@ -109,9 +109,11 @@ class Mysql extends ClientSire{
      *   */
     protected function wheres(){
         if (is_array($this->where)){
+            $where="";
             foreach ($this->where as $k=>$v){
-                $this->where[$k]=intval($v);
+                $where.=$k."='".$v."' AND ";
             }
+            $this->where=substr($where,0,strlen($where)-4);
         }
     }
     protected function toArray($arr){
