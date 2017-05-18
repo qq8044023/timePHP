@@ -22,14 +22,5 @@ return [
          *   */
         "timeType"=>"i",//时间类型 w周  d天  h小时     i分钟 s秒
         "timePeriod"=>"2",//时间
-    ),
-    "DB"=>array(
-        'DB_TYPE' => 'mysql',
-        'DB_HOST' => 'localhost',
-        'DB_NAME' => 'tourism_game',
-        'DB_USER' => 'tourism_game',
-        'DB_PWD' => '',
-        'DB_PORT' => '3306',
-        'DB_CODE'=>'utf8'
-    ),
+    )
 ];

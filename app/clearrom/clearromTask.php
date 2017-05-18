@@ -9,7 +9,6 @@ use lib\Db;
  */
 class clearromTask extends Task{
     public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $db->table("表名")->where(array("room_id"=>1))->save(array("status"=>1));
+        
     }
 }
