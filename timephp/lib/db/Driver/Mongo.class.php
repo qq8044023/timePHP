@@ -9,8 +9,8 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
-namespace Think\Db\Driver;
-use Think\Db\Driver;
+namespace lib\db\Driver;
+use lib\db\Driver;
 
 /**
  * Mongo数据库驱动
