@@ -87,25 +87,18 @@ return [
          * i    2                   每2分钟执行一次
          * s    3                   每3秒执行一次
          *   */
-        //每个月的1,3,5,12,25 号 12:20:00	 执行
-        "timeType"=>"m",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        "timePeriod"=>"1,3,5,12,25 12:20:00",//时间
-        //每周的1,3,5 12:20:00执行
-        //"timeType"=>"w",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        //"timePeriod"=>"1,3,5 12:20:00",//时间
-        //每天的19:20:00	执行
-        //"timeType"=>"d",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        //"timePeriod"=>"19:20:00",//时间
-        //每2小时	执行一次
-        //"timeType"=>"h",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        //"timePeriod"=>"2",//时间
-        //每2分钟	执行一次
-        //"timeType"=>"i",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        //"timePeriod"=>"2",//时间
-        //每2秒	执行一次
-        //"timeType"=>"s",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        //"timePeriod"=>"2",//时间
-    )
+        "timeType"=>"s",//时间类型  m号  w周  d天  h小时     i分钟 s秒
+        "timePeriod"=>"5",//时间
+    ),
+    /**  数据库连接配置  */
+    'DB_TYPE'   => "mysql", // 数据库类型
+    'DB_HOST'   => "127.0.0.1", // 服务器地址
+    'DB_NAME'   => "demo", // 数据库名
+    'DB_USER'   => "root", // 用户名
+    'DB_PWD'    => "root",  // 密码
+    'DB_PORT'   => 3306, // 端口
+    'DB_PREFIX' => "tourism_", // 数据库表前缀
+    'DB_PARAMS'=>array('persist'=>true),//是否支持长连接  true是  false 否
 ];
 ?>
 
@@ -113,162 +106,30 @@ return [
 
 ## 数据库操作
 
-## 新增
+## 数据库操作和ThinkPHP一样
 
 ``` php
-<?php
-namespace app\clearrom;
+namespace app\backup;
 use lib\Task;
-use lib\Db;
+use lib\common\SystemFun;
 /**
  * @author     村长<8044023@qq.com>
  * @copyright  TimePHP
  * @license    https://github.com/qq8044023/timePHP
  */
-class clearromTask extends Task{
+class backupTask extends Task{
     public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $data=[
-            "player_id"=>$player_id,
-            "item_id"=>$v["item_id"],
-            "rows"=>$v["rows"]
-        ];
-        $db->table("tourism_game_player_item")->add($data);
+        //初始化数据库配置信息
+        SystemFun::Config($this->getConfig());
+        //实例化模型   和 thinkphp的M()方法一样，操作也是一样
+        $model=SystemFun::model("gameActivity");
+        //执行查询一条数据
+        $res=$model->where(array("id"=>1))->find();
+        var_dump($res);
     }
 }
 
 ```
-
-## 删除
-
-``` php
-<?php 
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $db->table("tourism_game_player_item")->where(["id"=>1])->delete();
-    }
-}
-
-```
-
-## 改
-
-``` php
-<?php 
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $db->table("表名")->where(array("room_id"=>1))->save(array("status"=>1));
-    }
-}
-
-```
-
-## 查询一条数据
-
-``` php
-<?php 
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $res=$db->table("表名")->find();
-    }
-}
-```
-
-## 查询多数据
-
-``` php
-<?php
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $res=$db->table("表名")->select();
-    }
-}
-
-```
-
-## where条件
-
-``` php
-<?php
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $res=$db->table("表名")->where(array('status'=>1))->select();
-        //或者
-        $res=$db->table("表名")->where('status=1')->select();
-    }
-}
-
-```
-
-## where条件
-
-``` php
-<?php
-namespace app\clearrom;
-use lib\Task;
-use lib\Db;
-/**
- * @author     村长<8044023@qq.com>
- * @copyright  TimePHP
- * @license    https://github.com/qq8044023/timePHP
- */
-class clearromTask extends Task{
-    public function run(){
-        $db=Db::setConfig($this->getConfig()["DB"]);
-        $res=$db->table("表名")->where(array('status'=>1))->select();
-        //或者
-        $res=$db->table("表名")->where('status=1')->select();
-    }
-}
-
-```
-
-
 
 ## 获取配置文件信息
 
