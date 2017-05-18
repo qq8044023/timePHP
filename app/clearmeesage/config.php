@@ -9,7 +9,7 @@ return [
     "TASK"=>array(//任务相关配置【必填项】
         "name"=>"clearmeesage",//进程名
         "count"=>1,//进程数 默认为1，如果要开启多进程 请开启redis 使用队列
-        "status"=>1,//1 启动 -1停止
+        "status"=>-1,//1 启动 -1停止
         "processType"=>false,//默认false  （该选项只有系统进程才会用到）
         /**
          * 格式

@@ -20,8 +20,8 @@ return [
          * i    2                   每2分钟执行一次
          * s    3                   每3秒执行一次
          *   */
-        "timeType"=>"d",//时间类型  m号  w周  d天  h小时     i分钟 s秒
-        "timePeriod"=>"19:20:00",//时间
+        "timeType"=>"s",//时间类型  m号  w周  d天  h小时     i分钟 s秒
+        "timePeriod"=>"5",//时间
     ),
     "EMAIL"=>array(
         'SMTP_HOST'   => 'smtp.qq.com', //SMTP服务器
@@ -34,17 +34,15 @@ return [
         'REPLY_NAME'  => '', //回复名称（留空则为发件人名称）
         "GET_EMAIL"   => '8044023@qq.com',//接收邮箱地址
     ),
-    "DB"=>array(
-        'DB_TYPE' => 'mysql',
-        'DB_HOST' => 'localhost',
-        'DB_NAME' => 'tourism_game',
-        'DB_USER' => 'tourism_game',
-        'DB_PWD' => '',
-        'DB_PORT' => '3306',
-        'DB_CODE'=>'utf8'
-    ),
     "BAKDB"=>array(
         "DBDIR"=>"/home/bak/",//需要备份的路径
         "DBNAME"=>array("tourism_game")//需要备份的数据库
-    )
+    ),
+    'DB_TYPE'   => "mysql", // 数据库类型
+    'DB_HOST'   => "127.0.0.1", // 服务器地址
+    'DB_NAME'   => "demo", // 数据库名
+    'DB_USER'   => "root", // 用户名
+    'DB_PWD'    => "123123",  // 密码
+    'DB_PORT'   => 3306, // 端口
+    'DB_PREFIX' => "table_", // 数据库表前缀
 ];
